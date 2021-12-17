@@ -8,7 +8,7 @@ export const paintProductList = (products) => {
 export const paintProduct = ({ name, price, quantity }) => {
   const $table = $(`table`);
   const $tr = document.createElement('tr');
-  $tr.class = CLASS.PRODUCT_MANAGE_ITEM;
+  $tr.classList.add(CLASS.PRODUCT_MANAGE_ITEM);
   $tr.innerHTML = `
     <td class=${CLASS.PRODUCT_MANAGE_NAME}>${name}</td>
     <td class=${CLASS.PRODUCT_MANAGE_PRICE}>${price}</td>
@@ -53,7 +53,7 @@ export const paintAvailableProductList = (products) => {
 export const paintAvailableProduct = ({ name, price, quantity }) => {
   const $table = $(`tbody`);
   const $tr = document.createElement('tr');
-  $tr.id = CLASS.PRODUCT_PURCHASE_ITEM;
+  $tr.classList.add(CLASS.PRODUCT_PURCHASE_ITEM);
   $tr.innerHTML = `
     <td data-product-name="${name}" class=${CLASS.PRODUCT_PURCHASE_NAME}>${name}</td>
     <td data-product-price="${price}" class=${CLASS.PRODUCT_PURCHASE_PRICE}>${price}</td>
