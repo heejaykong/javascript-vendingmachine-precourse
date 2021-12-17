@@ -51,3 +51,12 @@ export const updateAvailableProducts = (currentStateArr, targetName) => {
   });
   return currentStateArr;
 };
+
+export const subtractCurrentCoins = (currentStateArr, coinType, quantity) => {
+  currentStateArr.map((obj) => {
+    if (obj.coinType === coinType) {
+      obj.quantity -= quantity;
+    }
+  });
+  return currentStateArr;
+};

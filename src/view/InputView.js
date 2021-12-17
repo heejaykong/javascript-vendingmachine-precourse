@@ -62,3 +62,9 @@ export const paintAvailableProduct = ({ name, price, quantity }) => {
   `;
   $table.appendChild($tr);
 };
+export const paintCoinsReturn = (coinType, quantity) => {
+  if (coinType === 500) $(`#${ID.COIN_500_QUANTITY}`).innerHTML = `${quantity}개`;
+  if (coinType === 100) $(`#${ID.COIN_100_QUANTITY}`).innerHTML = `${quantity}개`;
+  if (coinType === 50) $(`#${ID.COIN_50_QUANTITY}`).innerHTML = `${quantity}개`;
+  if (coinType === 10) $(`#${ID.COIN_10_QUANTITY}`).innerHTML = `${quantity}개`;
+};
