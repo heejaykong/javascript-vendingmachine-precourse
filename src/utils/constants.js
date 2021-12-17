@@ -16,6 +16,13 @@ export const INDEX = {
   PRODUCT_PURCHASE_MENU: 2,
 };
 
+export const COINS_INITIAL_STATE = [
+  { coinType: 500, quantity: 0 },
+  { coinType: 100, quantity: 0 },
+  { coinType: 50, quantity: 0 },
+  { coinType: 10, quantity: 0 },
+];
+
 export const ID = {
   APP: 'app',
   MAIN: 'main',
