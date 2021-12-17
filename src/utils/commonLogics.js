@@ -7,10 +7,14 @@ export const getLocalStorage = (LS_KEY) => {
   if (!loaded) return [];
   return JSON.parse(loaded);
 };
-
 export const getLocalStorage__Coins = (LS_KEY) => {
   const loaded = localStorage.getItem(LS_KEY);
   if (!loaded) return COINS_INITIAL_STATE;
+  return JSON.parse(loaded);
+};
+export const getLocalStorage__Amount = (LS_KEY) => {
+  const loaded = localStorage.getItem(LS_KEY);
+  if (!loaded) return 0;
   return JSON.parse(loaded);
 };
 

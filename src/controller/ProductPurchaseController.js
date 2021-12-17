@@ -1,12 +1,13 @@
 import { $ } from '../utils/dom.js';
 import {
-  getLocalStorage,
+  getLocalStorage__Amount,
   setLocalStorage,
   addToCurrentState,
 } from '../utils/commonLogics.js';
 import { ID, CLASS, ERROR_MSG, COINS_INITIAL_STATE } from '../utils/constants.js';
 import { ValidateHelper } from '../utils/validations.js';
 import { template as productPurchaseTemplate } from '../view/templates/product-purchase.js';
+import { paintUserCharge, clearInputs } from '../view/InputView.js';
 
 export default class ProductPurchaseController {
   constructor() {
@@ -17,8 +18,9 @@ export default class ProductPurchaseController {
 
   init = () => {
     $(`${ID.MAIN}`).innerHTML = productPurchaseTemplate;
-    this.userCharge = getLocalStorage('userCharge');
+    this.userCharge = getLocalStorage__Amount('userCharge');
     // TODO: paint all the things
+    paintUserCharge(this.userCharge);
     $('form').addEventListener('submit', this.handleProductPurchaseSubmit);
   };
 
@@ -28,17 +30,15 @@ export default class ProductPurchaseController {
     this.validate(this.$userChargeInput.value);
   };
   validate = (charge) => {
-    // 여기부터 하기~
     const isValid = ValidateHelper.productPurchase(charge);
     if (!isValid) {
       alert(ERROR_MSG.PRODUCT_PURCHASE);
     }
     if (isValid) {
-      // const updatedCoins = this.generateRandomCoins(charge);
-      // paintCoins(updatedCoins);
-      // paintTotalAmount(updatedCoins);
-      // setLocalStorage('chargedChange', updatedCoins);
-      // clearInputs([this.$chargeInput]);
+      this.userCharge = parseInt(this.userCharge) + parseInt(charge);
+      paintUserCharge(this.userCharge);
+      setLocalStorage('userCharge', this.userCharge);
+      clearInputs([this.$userChargeInput]);
     }
   };
 }

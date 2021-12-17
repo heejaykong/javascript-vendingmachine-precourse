@@ -42,3 +42,8 @@ export const paintTotalAmount = (coinsState) => {
   });
   $(`#${ID.VENDING_MACHINE_CHARGE_AMOUNT}`).innerHTML = `${totalAmount}원`;
 };
+
+// product purchase
+export const paintUserCharge = (chargeState) => {
+  $(`#${ID.CHARGE_AMOUNT}`).innerHTML = `${chargeState}원`;
+};
