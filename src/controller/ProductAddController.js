@@ -5,7 +5,7 @@ import {
   addToCurrentState,
 } from '../utils/commonLogics.js';
 import { createProduct } from '../utils/commonLogics.js';
-import { ID, CLASS, ERROR_MSG } from '../utils/constants.js';
+import { ID, ERROR_MSG } from '../utils/constants.js';
 import { template as productAddTemplate } from '../view/templates/product-add.js';
 import { clearInputs, paintProductList, paintProduct } from '../view/InputView.js';
 import { ValidateHelper } from '../utils/validations.js';
