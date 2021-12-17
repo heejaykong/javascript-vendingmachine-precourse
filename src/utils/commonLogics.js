@@ -43,3 +43,11 @@ export const updateCurrentCoins = (currentStateArr, coinType, quantity) => {
 };
 
 // 3. 상품 구매 탭
+export const updateAvailableProducts = (currentStateArr, targetName) => {
+  currentStateArr.map((obj) => {
+    if (obj.name === targetName) {
+      obj.quantity -= 1;
+    }
+  });
+  return currentStateArr;
+};

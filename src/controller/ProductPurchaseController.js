@@ -2,10 +2,10 @@ import { $ } from '../utils/dom.js';
 import {
   getLocalStorage__Amount,
   setLocalStorage,
-  addToCurrentState,
   getLocalStorage,
+  updateAvailableProducts,
 } from '../utils/commonLogics.js';
-import { ID, CLASS, ERROR_MSG, COINS_INITIAL_STATE } from '../utils/constants.js';
+import { ID, ERROR_MSG, COINS_INITIAL_STATE } from '../utils/constants.js';
 import { ValidateHelper } from '../utils/validations.js';
 import { template as productPurchaseTemplate } from '../view/templates/product-purchase.js';
 import {
@@ -26,9 +26,10 @@ export default class ProductPurchaseController {
     $(`${ID.MAIN}`).innerHTML = productPurchaseTemplate;
     this.userCharge = getLocalStorage__Amount('userCharge');
     this.availableProducts = getLocalStorage('products');
-    // TODO: paint all the things
+
     paintUserCharge(this.userCharge);
     paintAvailableProductList(this.availableProducts);
+
     $('form').addEventListener('submit', this.handleProductPurchaseSubmit);
     $('table').addEventListener('click', this.handleTableClick);
   };
@@ -60,12 +61,20 @@ export default class ProductPurchaseController {
   };
 
   purchase = (name, price, quantity) => {
-    console.log(name, price, quantity);
     const isValid = this.validatePurchase(price, quantity);
     if (!isValid) {
       alert(ERROR_MSG.PRODUCT_PURCHASE);
     }
     if (isValid) {
+      const newProductsState = updateAvailableProducts(this.availableProducts, name);
+      this.userCharge -= price;
+
+      paintUserCharge(this.userCharge);
+      $(`tbody`).innerHTML = '';
+      paintAvailableProductList(newProductsState);
+
+      setLocalStorage('products', newProductsState);
+      setLocalStorage('userCharge', this.userCharge);
     }
   };
 
@@ -73,7 +82,7 @@ export default class ProductPurchaseController {
     if (price > this.userCharge) {
       return false;
     }
-    if (quantity === 0) {
+    if (quantity <= 0) {
       return false;
     }
     return true;
