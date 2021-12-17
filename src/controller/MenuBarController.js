@@ -3,6 +3,8 @@ import { getLocalStorage, setLocalStorage } from '../utils/commonLogics.js';
 import { ID, INDEX, CLASS, ERROR_MSG } from '../utils/constants.js';
 import { template as menuBarTemplate } from '../view/templates/menu-bar.js';
 import ProductAddController from '../controller/ProductAddController.js';
+import VendingMachineManageController from '../controller/VendingMachineManageController.js';
+import ProductPurchaseController from '../controller/ProductPurchaseController.js';
 
 export default class MenuBarController {
   constructor() {
@@ -22,10 +24,10 @@ export default class MenuBarController {
       new ProductAddController();
     }
     if (recentMenu === INDEX.VENDING_MACHINE_MANAGE_MENU) {
-      // new VendingMachineController();
+      new VendingMachineManageController();
     }
     if (recentMenu === INDEX.PRODUCT_PURCHASE_MENU) {
-      // new ProductPurchaseController();
+      new ProductPurchaseController();
     }
   };
 
@@ -41,12 +43,12 @@ export default class MenuBarController {
       setLocalStorage('recentMenu', INDEX.PRODUCT_ADD_MENU);
     }
     if (btnId === ID.VENDING_MACHINE_MANAGE_MENU) {
-      // new VendingMachineController();
-      this.recentMenu = INDEX.VENDING_MACHINE_MANAGE_MENU;
+      new VendingMachineManageController();
+      setLocalStorage('recentMenu', INDEX.VENDING_MACHINE_MANAGE_MENU);
     }
     if (btnId === ID.PRODUCT_PURCHASE_MENU) {
-      // new ProductPurchaseController();
-      this.recentMenu = INDEX.PRODUCT_PURCHASE_MENU;
+      new ProductPurchaseController();
+      setLocalStorage('recentMenu', INDEX.PRODUCT_PURCHASE_MENU);
     }
   };
 }

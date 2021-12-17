@@ -15,7 +15,6 @@ export const paintProduct = ({ name, price, quantity }) => {
   `;
   $table.appendChild($tr);
 };
-
 export const clearInputs = (inputElements) => {
   inputElements.map((el) => {
     el.value = '';
