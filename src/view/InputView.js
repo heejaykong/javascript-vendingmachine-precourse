@@ -8,11 +8,11 @@ export const paintProductList = (products) => {
 export const paintProduct = ({ name, price, quantity }) => {
   const $table = $(`table`);
   const $tr = document.createElement('tr');
-  $tr.id = CLASS.PRODUCT_MANAGE_ITEM;
+  $tr.class = CLASS.PRODUCT_MANAGE_ITEM;
   $tr.innerHTML = `
-    <td id=${CLASS.PRODUCT_MANAGE_NAME}>${name}</td>
-    <td id=${CLASS.PRODUCT_MANAGE_PRICE}>${price}</td>
-    <td id=${CLASS.PRODUCT_MANAGE_QUANTITY}>${quantity}</td>
+    <td class=${CLASS.PRODUCT_MANAGE_NAME}>${name}</td>
+    <td class=${CLASS.PRODUCT_MANAGE_PRICE}>${price}</td>
+    <td class=${CLASS.PRODUCT_MANAGE_QUANTITY}>${quantity}</td>
   `;
   $table.appendChild($tr);
 };
@@ -46,4 +46,19 @@ export const paintTotalAmount = (coinsState) => {
 // product purchase
 export const paintUserCharge = (chargeState) => {
   $(`#${ID.CHARGE_AMOUNT}`).innerHTML = `${chargeState}원`;
+};
+export const paintAvailableProductList = (products) => {
+  products.map((product) => paintAvailableProduct(product));
+};
+export const paintAvailableProduct = ({ name, price, quantity }) => {
+  const $table = $(`tbody`);
+  const $tr = document.createElement('tr');
+  $tr.id = CLASS.PRODUCT_PURCHASE_ITEM;
+  $tr.innerHTML = `
+    <td data-product-name="${name}" class=${CLASS.PRODUCT_PURCHASE_NAME}>${name}</td>
+    <td data-product-price="${price}" class=${CLASS.PRODUCT_PURCHASE_PRICE}>${price}</td>
+    <td data-product-quantity="${quantity}" class=${CLASS.PRODUCT_PURCHASE_QUANTITY}>${quantity}</td>
+    <td><button class=${CLASS.PURCHASE_BTN}>구매하기</button></td>
+  `;
+  $table.appendChild($tr);
 };
