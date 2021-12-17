@@ -26,13 +26,13 @@ export const clearInputs = (inputElements) => {
 export const paintCoins = (coinsState) => {
   coinsState.map(({ coinType, quantity }) => {
     if (coinType === 500)
-      $(`#${ID.VENDING_MACHINE_COIN_500_QUANTITY}`).innerHTML = quantity;
+      $(`#${ID.VENDING_MACHINE_COIN_500_QUANTITY}`).innerHTML = `${quantity}개`;
     if (coinType === 100)
-      $(`#${ID.VENDING_MACHINE_COIN_100_QUANTITY}`).innerHTML = quantity;
+      $(`#${ID.VENDING_MACHINE_COIN_100_QUANTITY}`).innerHTML = `${quantity}개`;
     if (coinType === 50)
-      $(`#${ID.VENDING_MACHINE_COIN_50_QUANTITY}`).innerHTML = quantity;
+      $(`#${ID.VENDING_MACHINE_COIN_50_QUANTITY}`).innerHTML = `${quantity}개`;
     if (coinType === 10)
-      $(`#${ID.VENDING_MACHINE_COIN_10_QUANTITY}`).innerHTML = quantity;
+      $(`#${ID.VENDING_MACHINE_COIN_10_QUANTITY}`).innerHTML = `${quantity}개`;
   });
 };
 export const paintTotalAmount = (coinsState) => {
@@ -45,7 +45,7 @@ export const paintTotalAmount = (coinsState) => {
 
 // product purchase
 export const paintUserCharge = (chargeState) => {
-  $(`#${ID.CHARGE_AMOUNT}`).innerHTML = `${chargeState}원`;
+  $(`#${ID.CHARGE_AMOUNT}`).innerHTML = `${chargeState}`;
 };
 export const paintAvailableProductList = (products) => {
   products.map((product) => paintAvailableProduct(product));
