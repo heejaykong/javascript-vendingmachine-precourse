@@ -25,6 +25,15 @@ export const ValidateHelper = {
     }
     return true;
   },
+  productPurchase: (chargeInput) => {
+    if (isSmallerThanMinUnit(chargeInput)) {
+      return false;
+    }
+    if (cannotBeDividedByMinUnit(chargeInput)) {
+      return false;
+    }
+    return true;
+  },
 };
 
 export const isNotUnique = (newName, products) => {
