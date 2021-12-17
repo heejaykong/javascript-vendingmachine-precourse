@@ -1,21 +1,18 @@
 import { $ } from '../utils/dom.js';
 import {
-  getLocalStorage,
   getLocalStorage__Coins,
   setLocalStorage,
-  addToCurrentState,
   updateCurrentCoins,
 } from '../utils/commonLogics.js';
 import {
   ID,
-  CLASS,
   ERROR_MSG,
   COINS_INITIAL_STATE,
   COIN_TYPES_ARR,
 } from '../utils/constants.js';
 import { template as vendingMachineManageTemplate } from '../view/templates/vending-machine-manage.js';
 import { ValidateHelper } from '../utils/validations.js';
-import { clearInputs } from '../view/InputView.js';
+import { clearInputs, paintCoins, paintTotalAmount } from '../view/InputView.js';
 
 export default class VendingMachineManageController {
   constructor() {
@@ -26,7 +23,8 @@ export default class VendingMachineManageController {
   init = () => {
     $(`${ID.MAIN}`).innerHTML = vendingMachineManageTemplate;
     this.chargedChange = getLocalStorage__Coins('chargedChange');
-    // TODO: paint chargedChange
+    paintCoins(this.chargedChange);
+    paintTotalAmount(this.chargedChange);
     $('form').addEventListener('submit', this.handleChangeChargeSubmit);
   };
 
@@ -42,15 +40,18 @@ export default class VendingMachineManageController {
       alert(ERROR_MSG.VENDING_MACHINE_MANAGE);
     }
     if (isValid) {
-      this.generateRandomCoins(charge);
+      const updatedCoins = this.generateRandomCoins(charge);
+      paintCoins(updatedCoins);
+      paintTotalAmount(updatedCoins);
+      setLocalStorage('chargedChange', updatedCoins);
+      clearInputs([this.$chargeInput]);
     }
   };
 
   generateRandomCoins = (chargeInput) => {
+    let updatedCoins;
     const coinTypes = COIN_TYPES_ARR;
     const randomCoinType = MissionUtils.Random.pickNumberInList(coinTypes);
-    // console.log('randomCoinType');
-    // console.log(randomCoinType);
     for (let i = coinTypes.indexOf(randomCoinType); i < coinTypes.length; i++) {
       if (chargeInput <= 0) {
         break;
@@ -58,14 +59,8 @@ export default class VendingMachineManageController {
       let currentCount = 0;
       currentCount += parseInt(chargeInput / coinTypes[i]);
       chargeInput %= coinTypes[i];
-      const updatedChargedChange = updateCurrentCoins(
-        this.chargedChange,
-        coinTypes[i],
-        currentCount
-      );
-      console.log(updatedChargedChange);
-      // setLocalStorage('chargedChange', updatedChargedChange);
-      // clearInputs([this.$chargeInput]);
+      updatedCoins = updateCurrentCoins(this.chargedChange, coinTypes[i], currentCount);
     }
+    return updatedCoins;
   };
 }
