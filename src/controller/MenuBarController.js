@@ -1,4 +1,5 @@
-import { $, getLocalStorage, setLocalStorage } from '../utils/dom.js';
+import { $ } from '../utils/dom.js';
+import { getLocalStorage, setLocalStorage } from '../utils/commonLogics.js';
 import { ID, INDEX, CLASS, ERROR_MSG } from '../utils/constants.js';
 import { template as menuBarTemplate } from '../view/templates/menu-bar.js';
 import ProductAddController from '../controller/ProductAddController.js';

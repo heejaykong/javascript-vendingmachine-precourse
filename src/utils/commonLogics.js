@@ -1,0 +1,26 @@
+import Product from '../model/Product.js';
+
+// 0. 공통
+export const getLocalStorage = (LS_KEY) => {
+  const loaded = localStorage.getItem(LS_KEY);
+  if (!loaded) return [];
+  return JSON.parse(loaded);
+};
+
+export const setLocalStorage = (LS_KEY, value) => {
+  localStorage.setItem(LS_KEY, JSON.stringify(value));
+};
+
+export const addToCurrentState = (currentStateArr, item) => {
+  currentStateArr.push(item);
+  return currentStateArr;
+};
+
+// 1. 상품 관리 탭
+export const createProduct = (name, price, quantity) => {
+  return new Product(name, price, quantity);
+};
+
+// 2. 잔돈 충전 탭
+
+// 3. 상품 구매 탭

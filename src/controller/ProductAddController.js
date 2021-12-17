@@ -1,5 +1,10 @@
-import { $, getLocalStorage, setLocalStorage } from '../utils/dom.js';
-import { createProduct } from '../utils/createProduct.js';
+import { $ } from '../utils/dom.js';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  addToCurrentState,
+} from '../utils/commonLogics.js';
+import { createProduct } from '../utils/commonLogics.js';
 import { ID, CLASS, ERROR_MSG } from '../utils/constants.js';
 import { template as productAddTemplate } from '../view/templates/product-add.js';
 import { clearInputs, paintProductList, paintProduct } from '../view/InputView.js';
@@ -19,18 +24,20 @@ export default class ProductAddController {
   init = () => {
     $(`${ID.MAIN}`).innerHTML = productAddTemplate;
     this.products = getLocalStorage('products');
-    // paintProductList(this.products);
+    paintProductList(this.products);
     $('form').addEventListener('submit', this.handleProductAddSubmit);
   };
 
   handleProductAddSubmit = (e) => {
     e.preventDefault();
-    const $nameInput = $(`#${ID.PRODUCT_NAME_INPUT}`);
-    const $priceInput = $(`#${ID.PRODUCT_PRICE_INPUT}`);
-    const $quantityInput = $(`#${ID.PRODUCT_QUANTITY_INPUT}`);
-    // console.log($nameInput.value);
-    this.validate($nameInput.value, $priceInput.value, $quantityInput.value);
-    clearInputs([$nameInput, $priceInput, $quantityInput]);
+    this.$nameInput = $(`#${ID.PRODUCT_NAME_INPUT}`);
+    this.$priceInput = $(`#${ID.PRODUCT_PRICE_INPUT}`);
+    this.$quantityInput = $(`#${ID.PRODUCT_QUANTITY_INPUT}`);
+    this.validate(
+      this.$nameInput.value,
+      this.$priceInput.value,
+      this.$quantityInput.value
+    );
   };
 
   validate = (name, price, quantity) => {
@@ -39,10 +46,11 @@ export default class ProductAddController {
       alert(ERROR_MSG.PRODUCT_ADD);
     }
     if (isValid) {
-      // const newProduct = createProduct(name, price, quantity);
-      // paintProduct(newProduct);
-      // setLocalStorage('products', newProduct);
-      // clearInputs([$nameInput, $priceInput, $quantityInput]);
+      const newProduct = createProduct(name, price, quantity);
+      paintProduct(newProduct);
+      const updatedProducts = addToCurrentState(this.products, newProduct);
+      setLocalStorage('products', updatedProducts);
+      clearInputs([this.$nameInput, this.$priceInput, this.$quantityInput]);
     }
   };
 
