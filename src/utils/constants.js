@@ -23,6 +23,8 @@ export const COINS_INITIAL_STATE = [
   { coinType: 10, quantity: 0 },
 ];
 
+export const COIN_TYPES_ARR = [500, 100, 50, 10];
+
 export const ID = {
   APP: 'app',
   MAIN: 'main',

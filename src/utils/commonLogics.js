@@ -29,5 +29,13 @@ export const createProduct = (name, price, quantity) => {
 };
 
 // 2. 잔돈 충전 탭
+export const updateCurrentCoins = (currentStateArr, coinType, quantity) => {
+  currentStateArr.map((obj) => {
+    if (obj.coinType === coinType) {
+      obj.quantity += quantity;
+    }
+  });
+  return currentStateArr;
+};
 
 // 3. 상품 구매 탭
