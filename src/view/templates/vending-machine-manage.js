@@ -11,7 +11,7 @@ export const template = `
     />
     <button type="submit" id=${ID.VENDING_MACHINE_CHARGE_BTN}>충전하기</button>
   </form>
-  <div>보유 금액: <span id=${ID.VENDING_MACHINE_CHARGE_AMOUNT}></span></div>
+  <p>보유 금액: <span id=${ID.VENDING_MACHINE_CHARGE_AMOUNT}></span></p>
 
   <h3>자판기가 보유한 동전</h3>
   <table>

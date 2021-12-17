@@ -8,12 +8,7 @@ import { createProduct } from '../utils/commonLogics.js';
 import { ID, CLASS, ERROR_MSG } from '../utils/constants.js';
 import { template as productAddTemplate } from '../view/templates/product-add.js';
 import { clearInputs, paintProductList, paintProduct } from '../view/InputView.js';
-import {
-  isNotUnique,
-  isSmallerThanMinPrice,
-  cannotBeDividedByMinUnit,
-  isSmallerThanMinQuantity,
-} from '../utils/validations.js';
+import { ValidateHelper } from '../utils/validations.js';
 
 export default class ProductAddController {
   constructor() {
@@ -41,7 +36,7 @@ export default class ProductAddController {
   };
 
   validate = (name, price, quantity) => {
-    const isValid = this.validateHelper(name, price, quantity);
+    const isValid = ValidateHelper.productAdd(name, price, quantity, this.products);
     if (!isValid) {
       alert(ERROR_MSG.PRODUCT_ADD);
     }
@@ -52,21 +47,5 @@ export default class ProductAddController {
       setLocalStorage('products', updatedProducts);
       clearInputs([this.$nameInput, this.$priceInput, this.$quantityInput]);
     }
-  };
-
-  validateHelper = (name, price, quantity) => {
-    if (isNotUnique(name, this.products)) {
-      return false;
-    }
-    if (isSmallerThanMinPrice(price)) {
-      return false;
-    }
-    if (cannotBeDividedByMinUnit(price)) {
-      return false;
-    }
-    if (isSmallerThanMinQuantity(quantity)) {
-      return false;
-    }
-    return true;
   };
 }
